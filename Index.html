@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#08111f"/>
+<title>Personaje Bíblico</title>
+<style>
+:root{
+  --bg:#07111f;--panel:#10233a;--panel2:#0b1b2d;--text:#f8fafc;--muted:#b7c4d4;
+  --gold:#f7c85a;--gold2:#ffd978;--green:#34d399;--blue:#60a5fa;--line:#284764;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;min-height:100vh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 50% -10%,rgba(247,200,90,.16),transparent 34rem),
+    radial-gradient(circle at 100% 20%,rgba(96,165,250,.08),transparent 22rem),
+    linear-gradient(180deg,#08131f 0%,#06101b 100%);
+}
+.wrap{width:min(760px,100%);margin:auto;padding:24px 18px 44px}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.logo{width:52px;height:52px;border-radius:17px;display:grid;place-items:center;background:linear-gradient(145deg,var(--gold2),#b77e14);color:#102033;font-size:25px;font-weight:900;box-shadow:0 14px 30px rgba(247,200,90,.18)}
+.brand h1{margin:0;font-size:19px}.brand small{color:var(--muted)}
+.card{
+  background:linear-gradient(180deg,rgba(18,40,66,.98),rgba(10,27,46,.98));
+  border:1px solid rgba(255,255,255,.08);border-radius:28px;padding:26px;
+  box-shadow:0 24px 60px rgba(0,0,0,.3)
+}
+.hero{text-align:center;padding:34px 20px}
+.hero-icon{font-size:72px;display:block;filter:drop-shadow(0 12px 16px rgba(0,0,0,.25))}
+.badge{display:inline-block;border-radius:999px;padding:8px 12px;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.28);color:#9af0cc;font-size:13px;font-weight:800}
+h2{font-size:clamp(32px,6vw,50px);line-height:1.04;margin:12px 0}
+p{color:var(--muted);line-height:1.6}
+button{width:100%;border:0;border-radius:16px;padding:15px 18px;font-size:16px;font-weight:850;cursor:pointer;transition:.18s transform,.18s opacity,.18s border-color}
+button:active{transform:scale(.985)}
+.primary{background:linear-gradient(135deg,var(--gold2),#e9ad31);color:#142033;box-shadow:0 10px 26px rgba(247,200,90,.18)}
+.secondary{background:#17304f;color:#fff;border:1px solid #31567e}
+.ghost{background:transparent;color:#b8c4d4;border:1px solid #294765}
+.hide{display:none!important}
+.progress-row{display:flex;justify-content:space-between;color:#aebbd0;font-size:13px;margin-bottom:8px}
+.progress{height:10px;background:#071422;border:1px solid #1c3651;border-radius:999px;overflow:hidden}
+.progress>div{height:100%;width:0;background:linear-gradient(90deg,var(--green),#9af0cc);transition:width .28s ease}
+.question{font-size:25px;line-height:1.22;margin:22px 0 18px;font-weight:800}
+.answers{display:grid;gap:12px}
+.answer{text-align:left;background:#0b1b2d;color:#fff;border:1px solid #24435f;padding:16px;border-radius:16px;font-weight:750}
+.answer:hover{border-color:#4b7298}
+.answer.selected{border-color:var(--gold);background:#1a2e43;box-shadow:0 0 0 2px rgba(247,200,90,.14)}
+.actions{display:flex;gap:12px;margin-top:20px}.actions button{flex:1}
+.result{text-align:center}
+.result-shell{padding:24px;border-radius:24px;background:radial-gradient(circle at top,rgba(247,200,90,.15),transparent 16rem),linear-gradient(180deg,#142d49,#0a1a2b);border:1px solid #355777;position:relative;overflow:hidden}
+.result-shell:after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.04),transparent 42%);pointer-events:none}
+.portrait{width:138px;height:138px;border-radius:38px;margin:0 auto 14px;display:grid;place-items:center;font-size:70px;background:linear-gradient(145deg,#234567,#0b1929);border:1px solid #466d92}
+.kicker{font-size:13px;letter-spacing:.13em;text-transform:uppercase;color:#f6d47a;font-weight:900}
+.traits{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin:16px 0}
+.trait{font-size:13px;border-radius:999px;padding:8px 11px;background:#18314d;border:1px solid #33597e}
+.block{margin-top:16px;padding:16px;text-align:left;border-radius:18px;background:#0b1b2c;border:1px solid #274561}
+.block strong{color:#f6d47a}
+.verse{margin-top:16px;padding:17px;border-radius:18px;background:#081522;border:1px solid #27445f;color:#e6edf5;font-style:italic}
+.affinity{margin-top:20px;text-align:left}
+.affinity h3{margin:0 0 12px;font-size:16px}
+.aff-row{display:grid;grid-template-columns:92px 1fr 44px;gap:10px;align-items:center;margin:9px 0}
+.aff-name{font-size:13px;color:#dce7f3}
+.aff-track{height:9px;background:#071422;border-radius:999px;overflow:hidden;border:1px solid #1d3854}
+.aff-track div{height:100%;background:linear-gradient(90deg,#60a5fa,#34d399)}
+.aff-pct{font-size:12px;color:#aebbd0;text-align:right}
+.share-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.tiny{font-size:12px;color:#8293a8;margin-top:16px}
+.fade{animation:fade .28s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:50}
+.confetti span{position:absolute;top:-20px;font-size:20px;animation:fall 2.5s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.1}}
+@media(max-width:520px){.card{padding:20px;border-radius:22px}.actions{flex-direction:column}.share-grid{grid-template-columns:1fr}.result-shell{padding:20px}.aff-row{grid-template-columns:82px 1fr 40px}}
+</style>
+</head>
+<body>
+<div id="confetti" class="confetti"></div>
+<main class="wrap">
+  <div class="brand">
+    <div class="logo">✦</div>
+    <div><h1>Personaje Bíblico</h1><small>Descubre con quién te identificas</small></div>
+  </div>
+
+  <section id="start" class="card hero fade">
+    <span class="hero-icon">📖</span>
+    <div class="badge">Cuestionario bíblico</div>
+    <h2>¿Qué personaje bíblico eres?</h2>
+    <p>Responde 10 preguntas sobre tu carácter, decisiones y forma de afrontar los retos. Al final descubrirás qué personaje bíblico refleja más tus fortalezas.</p>
+    <button id="startBtn" class="primary">Comenzar cuestionario</button>
+    <p class="tiny">Toma aproximadamente 2 minutos.</p>
+  </section>
+
+  <section id="quiz" class="card hide">
+    <div class="progress-row"><span id="counter"></span><span id="percent"></span></div>
+    <div class="progress"><div id="bar"></div></div>
+    <div id="question" class="question"></div>
+    <div id="answers" class="answers"></div>
+    <div class="actions">
+      <button id="backBtn" class="ghost">Atrás</button>
+      <button id="nextBtn" class="primary" disabled>Siguiente</button>
+    </div>
+  </section>
+
+  <section id="result" class="card result hide">
+    <div class="badge">Tu resultado</div>
+    <div class="result-shell fade" style="margin-top:14px">
+      <div class="portrait" id="resultEmoji">👑</div>
+      <div class="kicker">Tu personaje bíblico es</div>
+      <h2 id="resultName">David</h2>
+      <div id="traits" class="traits"></div>
+      <p id="resultText"></p>
+
+      <div class="block">
+        <strong>¿Por qué te salió este personaje?</strong>
+        <div id="resultWhy" style="margin-top:8px;color:#c7d2df;line-height:1.55"></div>
+      </div>
+
+      <div class="block">
+        <strong>Fortaleza principal</strong>
+        <div id="resultStrength" style="margin-top:8px;color:#c7d2df;line-height:1.55"></div>
+      </div>
+
+      <div class="block">
+        <strong>Aspecto a trabajar</strong>
+        <div id="resultGrowth" style="margin-top:8px;color:#c7d2df;line-height:1.55"></div>
+      </div>
+
+      <div id="verse" class="verse"></div>
+
+      <div class="affinity">
+        <h3>Tu afinidad con otros personajes</h3>
+        <div id="affinityList"></div>
+      </div>
+    </div>
+
+    <div class="share-grid">
+      <button id="shareBtn" class="primary">Compartir resultado</button>
+      <button id="whatsBtn" class="secondary">Enviar por WhatsApp</button>
+    </div>
+    <button id="restartBtn" class="ghost" style="margin-top:10px">Volver a hacerlo</button>
+    <p class="tiny">Este cuestionario es recreativo y busca motivar a conocer mejor la Biblia.</p>
+  </section>
+</main>
+
+<script>
+const characters={
+david:{name:"David",emoji:"👑",text:"Tienes un corazón valiente y sensible. Sueles avanzar aun cuando el reto parece más grande que tú, y valoras profundamente volver a Dios cuando fallas.",why:"Tus respuestas reflejan valentía, adoración, lealtad y perseverancia: rasgos muy presentes en la vida de David.",strength:"Tu mayor fortaleza es enfrentar desafíos con fe y corazón.",growth:"Procura no dejar que las emociones te hagan actuar demasiado rápido. La valentía crece cuando también se acompaña de sabiduría.",traits:["Valentía","Adoración","Lealtad","Perseverancia"],verse:"«Jehová es mi pastor; nada me faltará.» — Salmo 23:1 (RVR1960)"},
+moises:{name:"Moisés",emoji:"📜",text:"Tienes un fuerte sentido de responsabilidad. Aunque a veces dudes, eres capaz de asumir liderazgo cuando entiendes que una tarea importa.",why:"Tus respuestas apuntan a buscar dirección, asumir responsabilidad y guiar a otros con humildad.",strength:"Sabes cargar responsabilidad y pensar en el bienestar de otros.",growth:"No permitas que la inseguridad te haga subestimar las capacidades que Dios puede usar en ti.",traits:["Liderazgo","Responsabilidad","Humildad","Fe"],verse:"«Jehová peleará por vosotros, y vosotros estaréis tranquilos.» — Éxodo 14:14 (RVR1960)"},
+jose:{name:"José",emoji:"🌾",text:"Tienes capacidad para seguir adelante después de momentos difíciles y convertir obstáculos en oportunidades para servir y ayudar a otros.",why:"Tus respuestas muestran resiliencia, visión, perdón y una forma estratégica de enfrentar las dificultades.",strength:"Puedes transformar experiencias difíciles en aprendizaje y propósito.",growth:"Evita cargar solo con todo. Compartir el proceso con personas confiables también es una fortaleza.",traits:["Resiliencia","Sabiduría","Perdón","Visión"],verse:"«Vosotros pensasteis mal contra mí, mas Dios lo encaminó a bien...» — Génesis 50:20 (RVR1960)"},
+pablo:{name:"Pablo",emoji:"✝️",text:"Eres intenso, determinado y orientado a una misión. Cuando estás convencido de algo, avanzas con mucha energía.",why:"Tus respuestas reflejan convicción, enfoque, capacidad de aprender y deseo de influir positivamente en otros.",strength:"Tienes determinación para avanzar incluso en contextos difíciles.",growth:"Recuerda equilibrar firmeza con paciencia y sensibilidad hacia quienes van a otro ritmo.",traits:["Convicción","Misión","Disciplina","Perseverancia"],verse:"«Todo lo puedo en Cristo que me fortalece.» — Filipenses 4:13 (RVR1960)"},
+ester:{name:"Ester",emoji:"👸",text:"Tienes sensibilidad, prudencia y valor para actuar en el momento correcto. Sueles pensar antes de intervenir.",why:"Tus respuestas muestran prudencia, valentía estratégica y disposición para asumir riesgos por otros.",strength:"Sabes esperar el momento adecuado y actuar con intención.",growth:"No permitas que el temor a equivocarte retrase decisiones que ya sabes que debes tomar.",traits:["Valentía","Prudencia","Propósito","Influencia"],verse:"«¿Y quién sabe si para esta hora has llegado al reino?» — Ester 4:14 (RVR1960)"},
+debora:{name:"Débora",emoji:"⚔️",text:"Eres firme, resolutivo y sabes impulsar a otros. Tienes una combinación de liderazgo y claridad.",why:"Tus respuestas reflejan decisión, iniciativa y capacidad para inspirar acción.",strength:"Tienes facilidad para mover a otros de la duda a la acción.",growth:"Cuida que tu fortaleza no se convierta en impaciencia con quienes necesitan más tiempo.",traits:["Liderazgo","Decisión","Sabiduría","Valor"],verse:"«Levántate, porque este es el día...» — Jueces 4:14 (RVR1960)"},
+daniel:{name:"Daniel",emoji:"🦁",text:"Eres firme en tus convicciones. La disciplina, la oración y la constancia te ayudan a mantenerte en pie aun bajo presión.",why:"Tus respuestas priorizan integridad, fidelidad y autocontrol aun cuando el entorno empuja en otra dirección.",strength:"Tu estabilidad interior te ayuda a mantenerte fiel bajo presión.",growth:"Evita aislarte demasiado. La firmeza también puede convivir con apertura y cercanía.",traits:["Integridad","Disciplina","Oración","Fidelidad"],verse:"«...Daniel propuso en su corazón no contaminarse...» — Daniel 1:8 (RVR1960)"},
+pedro:{name:"Pedro",emoji:"🎣",text:"Eres apasionado, espontáneo y dispuesto a intentar cosas grandes. Aprendes de tus errores y tienes capacidad para levantarte.",why:"Tus respuestas reflejan iniciativa, pasión, valentía y una personalidad que crece a través de la experiencia.",strength:"Tienes iniciativa y disposición para dar el primer paso.",growth:"Tu reto es pensar un poco más antes de actuar cuando las emociones están fuertes.",traits:["Pasión","Iniciativa","Crecimiento","Valor"],verse:"«Señor, ¿a quién iremos? Tú tienes palabras de vida eterna.» — Juan 6:68 (RVR1960)"}
+};
+
+const questions=[
+{q:"Cuando aparece un problema grande, ¿qué haces primero?",a:[["Oro y confío en Dios antes de actuar",["david","daniel"]],["Analizo la situación y busco una estrategia",["jose","ester"]],["Pido consejo y pienso en los demás",["moises","debora"]],["Actúo rápidamente con valentía",["pedro","pablo"]]]},
+{q:"¿Qué cualidad valoras más en ti?",a:[["Valentía",["david","debora"]],["Perseverancia",["jose","pablo"]],["Integridad",["daniel","ester"]],["Capacidad para liderar",["moises","debora"]]]},
+{q:"Si todos hacen algo con lo que no estás de acuerdo...",a:[["Mantengo mi decisión aunque quede solo",["daniel","pablo"]],["Intento convencerlos con valentía",["david","debora"]],["Me retiro sin guardar rencor",["jose","ester"]],["Les digo directamente lo que pienso",["pedro","pablo"]]]},
+{q:"En un equipo, normalmente eres quien...",a:[["Anima a todos a avanzar",["debora","david"]],["Organiza y piensa a largo plazo",["jose","ester"]],["Toma la iniciativa rápidamente",["pedro","pablo"]],["Asume la responsabilidad de dirigir",["moises","debora"]]]},
+{q:"¿Qué haces después de cometer un error?",a:[["Lo reconozco y busco corregirlo",["david","pedro"]],["Aprendo y vuelvo a intentarlo",["pedro","pablo"]],["Reflexiono antes de volver a actuar",["daniel","ester"]],["Pienso cómo evitar que se repita",["jose","moises"]]]},
+{q:"¿Cuál de estas situaciones te representa mejor?",a:[["Defender algo que considero correcto",["debora","pablo"]],["Mantener mi fe bajo presión",["daniel","ester"]],["Perdonar a alguien que me hizo daño",["jose","david"]],["Enfrentar algo que parece imposible",["david","pedro"]]]},
+{q:"Cuando debes tomar una decisión importante...",a:[["Oro y espero dirección",["moises","daniel"]],["Actúo cuando sé que es el momento",["ester","debora"]],["Me dejo llevar bastante por mi corazón",["pedro","david"]],["Evalúo consecuencias a largo plazo",["jose","pablo"]]]},
+{q:"¿Qué te gustaría que otros dijeran de ti?",a:[["Que fui valiente y amé a Dios",["david","ester"]],["Que nunca negocié mis convicciones",["daniel","pablo"]],["Que supe perdonar y ayudar",["jose","moises"]],["Que animé a otros a cumplir su misión",["debora","pedro"]]]},
+{q:"Si te dan una responsabilidad demasiado grande...",a:[["Al principio dudo, pero termino aceptándola",["moises","ester"]],["Me emociona y empiezo de inmediato",["pedro","david"]],["Me preparo con disciplina",["daniel","pablo"]],["Diseño un plan antes de avanzar",["jose","debora"]]]},
+{q:"¿Qué frase se parece más a tu manera de vivir?",a:[["Aunque caiga, puedo levantarme",["pedro","david"]],["Dios puede transformar lo difícil en algo bueno",["jose","moises"]],["Ser fiel importa aunque nadie más lo sea",["daniel","ester"]],["Tengo una misión y debo avanzar",["pablo","debora"]]]}
+];
+
+let index=0;
+let selections=Array(questions.length).fill(null);
+const $=id=>document.getElementById(id);
+const start=$("start"),quiz=$("quiz"),result=$("result");
+
+function render(){
+  const item=questions[index];
+  const pct=Math.round(((index+1)/questions.length)*100);
+  $("counter").textContent=`Pregunta ${index+1} de ${questions.length}`;
+  $("percent").textContent=`${pct}%`;
+  $("bar").style.width=`${pct}%`;
+  $("question").textContent=item.q;
+  $("answers").innerHTML="";
+  item.a.forEach((opt,i)=>{
+    const b=document.createElement("button");
+    b.className="answer fade"+(selections[index]===i?" selected":"");
+    b.textContent=opt[0];
+    b.onclick=()=>{
+      selections[index]=i;
+      [...$("answers").children].forEach(x=>x.classList.remove("selected"));
+      b.classList.add("selected");
+      $("nextBtn").disabled=false;
+    };
+    $("answers").appendChild(b);
+  });
+  $("nextBtn").disabled=selections[index]===null;
+  $("backBtn").style.visibility=index===0?"hidden":"visible";
+  $("nextBtn").textContent=index===questions.length-1?"Ver mi resultado":"Siguiente";
+}
+
+function scores(){
+  const s={};
+  Object.keys(characters).forEach(k=>s[k]=0);
+  selections.forEach((choice,qi)=>{
+    questions[qi].a[choice][1].forEach((k,rank)=>{
+      s[k]+=rank===0?2:1;
+    });
+  });
+  return s;
+}
+
+function calculate(){
+  const s=scores();
+  const sorted=Object.keys(s).sort((a,b)=>s[b]-s[a]);
+  return {winner:characters[sorted[0]],sorted,s};
+}
+
+function showAffinity(sorted,s){
+  const max=Math.max(...Object.values(s),1);
+  $("affinityList").innerHTML="";
+  sorted.slice(0,5).forEach(k=>{
+    const pct=Math.max(8,Math.round((s[k]/max)*100));
+    const row=document.createElement("div");
+    row.className="aff-row";
+    row.innerHTML=`<div class="aff-name">${characters[k].name}</div><div class="aff-track"><div style="width:${pct}%"></div></div><div class="aff-pct">${pct}%</div>`;
+    $("affinityList").appendChild(row);
+  });
+}
+
+function celebrate(){
+  const holder=$("confetti");
+  holder.innerHTML="";
+  const pieces=["✨","⭐","🟨","🟦","🟩"];
+  for(let i=0;i<28;i++){
+    const s=document.createElement("span");
+    s.textContent=pieces[Math.floor(Math.random()*pieces.length)];
+    s.style.left=Math.random()*100+"%";
+    s.style.animationDelay=(Math.random()*.7)+"s";
+    s.style.fontSize=(14+Math.random()*15)+"px";
+    holder.appendChild(s);
+  }
+  setTimeout(()=>holder.innerHTML="",3500);
+}
+
+function showResult(){
+  const {winner:c,sorted,s}=calculate();
+  $("resultEmoji").textContent=c.emoji;
+  $("resultName").textContent=c.name;
+  $("resultText").textContent=c.text;
+  $("resultWhy").textContent=c.why;
+  $("resultStrength").textContent=c.strength;
+  $("resultGrowth").textContent=c.growth;
+  $("verse").textContent=c.verse;
+  $("traits").innerHTML="";
+  c.traits.forEach(t=>{
+    const span=document.createElement("span");
+    span.className="trait";
+    span.textContent=t;
+    $("traits").appendChild(span);
+  });
+  showAffinity(sorted,s);
+  result.dataset.character=c.name;
+  quiz.classList.add("hide");
+  result.classList.remove("hide");
+  celebrate();
+  scrollTo({top:0,behavior:"smooth"});
+}
+
+$("startBtn").onclick=()=>{
+  start.classList.add("hide");
+  quiz.classList.remove("hide");
+  index=0;
+  render();
+  scrollTo({top:0,behavior:"smooth"});
+};
+$("nextBtn").onclick=()=>{
+  if(selections[index]===null)return;
+  if(index<questions.length-1){index++;render()}else showResult();
+};
+$("backBtn").onclick=()=>{if(index>0){index--;render()}};
+$("restartBtn").onclick=()=>{
+  selections=Array(questions.length).fill(null);
+  index=0;
+  result.classList.add("hide");
+  start.classList.remove("hide");
+  scrollTo({top:0,behavior:"smooth"});
+};
+
+function shareText(){
+  const n=result.dataset.character||"";
+  return `Hice el cuestionario “¿Qué personaje bíblico eres?” y mi resultado fue: ${n} 📖✨\n\n¡Hazlo tú también!`;
+}
+$("shareBtn").onclick=async()=>{
+  const text=shareText();
+  if(navigator.share){
+    try{await navigator.share({title:"¿Qué personaje bíblico eres?",text,url:location.href})}catch(e){}
+  }else{
+    await navigator.clipboard.writeText(text+" "+location.href);
+    alert("Resultado copiado. ¡Ya puedes compartirlo!");
+  }
+};
+$("whatsBtn").onclick=()=>{
+  window.open("https://wa.me/?text="+encodeURIComponent(shareText()+"\n"+location.href),"_blank");
+};
+</script>
+</body>
+</html>
